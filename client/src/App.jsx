@@ -1,16 +1,22 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Navbar from './components/Home/Navbar'
+import Hero from './components/Home/Hero'
+import Features from './components/Home/Features'
+import Portfolio from './components/Home/Portfolio'
+import HowItWorks from './components/Home/HowItWork'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1 className="text-4xl font-bold text-blue-500">
-        Tailwind fonctionne 🚀
-      </h1>
+      <div className="bg-background min-h-screen">
+
+        <Navbar />
+        <Hero />
+        <Features />
+        <Portfolio/>
+        <HowItWorks/>
+      </div>
     </>
   )
 }
