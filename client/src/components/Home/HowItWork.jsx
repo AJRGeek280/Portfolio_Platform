@@ -39,10 +39,11 @@ const steps = [
 export default function HowItWorks() {
 
     const [active, setActive] = useState(0)
+    const [sold, setSold] = useState(false)
 
     return (
 
-        <section className="py-32 bg-background relative overflow-hidden">
+        <section id="howItWork" className="pt-20 pb-32 bg-background relative overflow-hidden">
 
             <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
@@ -268,6 +269,37 @@ ${isActive ? "bg-accent text-black" : "bg-white/10 text-white"}
 
                                         </div>
 
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.4 }}
+                                            className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 flex justify-between"
+                                        >
+
+                                            <span className="text-gray-400 text-xs">
+                                                Uploading...
+                                            </span>
+
+                                            <span className="text-accent text-xs font-semibold">
+                                                50 Photos
+                                            </span>
+
+                                        </motion.div>
+
+
+                                        {/* notification */}
+
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.8 }}
+                                            className="bg-accent/20 text-accent text-xs px-3 py-2 rounded-lg w-fit"
+                                        >
+
+                                            Photos uploaded successfully
+
+                                        </motion.div>
+
                                     </div>
 
                                 )}
@@ -284,7 +316,7 @@ ${isActive ? "bg-accent text-black" : "bg-white/10 text-white"}
                                         <div className="flex items-center justify-between">
 
                                             <p className="text-white text-sm font-semibold">
-                                                Emma & David Wedding
+                                                Emma & David
                                             </p>
 
                                             <span className="text-xs px-2 py-1 bg-accent/20 text-accent rounded">
@@ -298,49 +330,49 @@ ${isActive ? "bg-accent text-black" : "bg-white/10 text-white"}
 
                                         <div className="grid grid-cols-3 gap-2 auto-rows-[80px]">
 
-{[0,1,2,3,4,5].map((i)=>{
+                                            {[0, 1, 2, 3, 4, 5].map((i) => {
 
-const layouts = [
-"row-span-2 col-span-2",
-"row-span-1 col-span-1",
-"row-span-2 col-span-1",
-"row-span-2 col-span-1",
-"row-span-1 col-span-1",
-"row-span-2 col-span-1"
-]
+                                                const layouts = [
+                                                    "row-span-2 col-span-2",
+                                                    "row-span-1 col-span-1",
+                                                    "row-span-2 col-span-1",
+                                                    "row-span-2 col-span-1",
+                                                    "row-span-1 col-span-1",
+                                                    "row-span-2 col-span-1"
+                                                ]
 
-return(
+                                                return (
 
-<motion.div
-key={i}
-initial={{opacity:0,scale:0.9}}
-animate={{opacity:1,scale:1}}
-transition={{delay:i*0.12}}
-className={`overflow-hidden rounded-xl ${layouts[i]}`}
->
+                                                    <motion.div
+                                                        key={i}
+                                                        initial={{ opacity: 0, scale: 0.9 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
+                                                        transition={{ delay: i * 0.12 }}
+                                                        className={`overflow-hidden rounded-xl ${layouts[i]}`}
+                                                    >
 
-<div className="relative group">
+                                                        <div className="relative group">
 
-<img
-src={uploadImages[i]}
-className="w-full h-full object-cover transition duration-500 hover:scale-110"
-alt="Gallery"
-/>
+                                                            <img
+                                                                src={uploadImages[i]}
+                                                                className="w-full h-full object-cover transition duration-500 hover:scale-110"
+                                                                alt="Gallery"
+                                                            />
 
-<div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                                            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
 
-</div>
+                                                            </div>
 
-</div>
+                                                        </div>
 
 
-</motion.div>
+                                                    </motion.div>
 
-)
+                                                )
 
-})}
+                                            })}
 
-</div>
+                                        </div>
 
 
                                         {/* share link */}
@@ -372,7 +404,7 @@ alt="Gallery"
                                             className="bg-accent/20 text-accent text-xs px-3 py-2 rounded-lg w-fit"
                                         >
 
-                                            Gallery sent to client ✓
+                                            Gallery sent to client
 
                                         </motion.div>
 
@@ -387,19 +419,133 @@ alt="Gallery"
 
                                 {active === 3 && (
 
-                                    <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                                    <div className="space-y-4">
 
-                                        <p className="text-gray-400 text-sm">
+                                        {/* product preview */}
 
-                                            Print Sale
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ duration: 0.4 }}
+                                            className="relative rounded-xl overflow-hidden"
+                                        >
 
-                                        </p>
+                                            <img
+                                                src={uploadImages[0]}
+                                                className="w-full h-28 object-cover"
+                                            />
 
-                                        <p className="text-accent text-2xl font-bold">
+                                            <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs text-white">
+                                                Fine Art Print
+                                            </div>
 
-                                            $120
+                                        </motion.div>
 
-                                        </p>
+
+                                        {/* price + cart */}
+
+                                        <div className="flex items-center justify-between">
+
+                                            <div>
+
+                                                <p className="text-gray-400 text-xs">
+                                                    Price
+                                                </p>
+
+                                                <p className="text-accent font-bold text-lg">
+                                                    $45
+                                                </p>
+
+                                            </div>
+
+                                            <motion.button
+                                                whileTap={{ scale: 0.9 }}
+                                                onClick={() => setSold(true)}
+                                                className="bg-accent text-black text-xs px-3 py-1 rounded-lg font-semibold"
+                                            >
+
+                                                Add to Cart
+
+                                            </motion.button>
+
+                                        </div>
+
+
+                                        {/* revenue graph */}
+
+                                        <div className="space-y-1">
+
+                                            <p className="text-gray-400 text-xs">
+                                                Revenue
+                                            </p>
+
+                                            <div className="flex items-end gap-1 h-10">
+
+                                                {[20, 35, 40, 60, 80].map((h, i) => (
+
+                                                    <motion.div
+                                                        key={i}
+                                                        initial={{ height: 0 }}
+                                                        animate={{ height: h }}
+                                                        transition={{ delay: i * 0.1 }}
+                                                        className="w-2 bg-accent rounded"
+                                                    />
+
+                                                ))}
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.7 }}
+                                            className="flex items-center justify-between bg-white/5 border border-white/10 rounded-lg px-3 py-2"
+                                        >
+
+                                            <p className="text-xs text-gray-400">
+                                                Total Sales
+                                            </p>
+
+                                            <span className="text-accent text-xs font-semibold">
+                                                $1.2K
+                                            </span>
+
+                                        </motion.div>
+
+
+                                        {/* notification */}
+
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 1 }}
+                                            className="bg-accent/20 text-accent text-xs px-3 py-2 rounded-lg w-fit"
+                                        >
+
+                                            Print order received
+
+                                        </motion.div>
+
+
+                                        {/* sale notification */}
+
+                                        {sold && (
+
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className="bg-accent/20 text-accent text-xs px-3 py-2 rounded-lg w-fit"
+                                            >
+
+                                                New payment received
+
+                                            </motion.div>
+
+                                        )}
 
                                     </div>
 
@@ -449,9 +595,42 @@ alt="Gallery"
 
                                         </div>
 
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.4 }}
+                                            className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 flex justify-between"
+                                        >
+
+                                            <span className="text-gray-400 text-xs">
+                                                Portfolio Views
+                                            </span>
+
+                                            <span className="text-accent text-xs font-semibold">
+                                                +3.5K
+                                            </span>
+
+                                        </motion.div>
+
+
+                                        {/* notification */}
+
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.8 }}
+                                            className="bg-accent/20 text-accent text-xs px-3 py-2 rounded-lg w-fit"
+                                        >
+
+                                            Portfolio create successfully
+
+                                        </motion.div>
+
                                     </div>
 
                                 )}
+
+
 
                             </motion.div>
 

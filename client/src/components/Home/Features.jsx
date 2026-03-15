@@ -27,160 +27,160 @@ const features = [
 
 export default function Features() {
 
-return (
+  return (
 
-<section className="py-32 bg-background relative overflow-hidden">
+    <section id="features" className="py-20 bg-background relative overflow-hidden">
 
-<div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
-{/* LEFT SIDE */}
+        {/* LEFT SIDE */}
 
-<motion.div
-initial={{ opacity:0, y:40 }}
-whileInView={{ opacity:1, y:0 }}
-transition={{ duration:0.8 }}
->
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
 
-<h2 className="font-titre text-4xl md:text-5xl text-white leading-tight">
+          <h2 className="font-titre text-4xl md:text-5xl text-white leading-tight">
 
-<span className="gradient-text block">
-Everything
-</span>
+            <span className="gradient-text block">
+              Everything
+            </span>
 
-photographers need
+            photographers need
 
-</h2>
+          </h2>
 
-<p className="text-gray-400 mt-6 text-lg font-body">
+          <p className="text-gray-400 mt-6 text-lg font-body">
 
-Build your portfolio, deliver photos to clients,
-secure your galleries and sell your work —
-all in one powerful platform.
+            Build your portfolio, deliver photos to clients,
+            secure your galleries and sell your work —
+            all in one powerful platform.
 
-</p>
+          </p>
 
-{/* FEATURES GRID */}
+          {/* FEATURES GRID */}
 
-<div className="grid grid-cols-2 gap-6 mt-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
 
-{features.map((feature,index)=>{
+            {features.map((feature, index) => {
 
-const Icon = feature.icon
+              const Icon = feature.icon
 
-return(
+              return (
 
-<div
-key={index}
-className="bg-white/5 backdrop-blur-lg border border-white/10 p-6 rounded-xl hover:border-accent hover:scale-[1.03] transition flex flex-col justify-between"
->
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-lg border border-white/10 p-6 rounded-xl hover:border-accent hover:scale-[1.03] transition flex flex-col justify-between"
+                >
 
-<div>
+                  <div>
 
-<div className="w-10 h-10 flex items-center justify-center bg-accent/20 rounded-lg mb-4">
+                    <div className="w-10 h-10 flex items-center justify-center bg-accent/20 rounded-lg mb-4">
 
-<Icon className="text-accent" size={22}/>
+                      <Icon className="text-accent" size={22} />
 
-</div>
+                    </div>
 
-<h3 className="text-white font-semibold font-body">
+                    <h3 className="text-white font-semibold font-body">
 
-{feature.title}
+                      {feature.title}
 
-</h3>
+                    </h3>
 
-<p className="text-gray-400 text-sm mt-2">
+                    <p className="text-gray-400 text-sm mt-2">
 
-{feature.description}
+                      {feature.description}
 
-</p>
+                    </p>
 
-</div>
+                  </div>
 
-<a
-href="#"
-className="text-accent text-sm font-medium mt-6 group"
->
+                  <a
+                    href="#"
+                    className="text-accent text-sm font-medium mt-6 group"
+                  >
 
-<span className="inline-block transition group-hover:translate-x-1">
-Learn more →
-</span>
+                    <span className="inline-block transition group-hover:translate-x-1">
+                      Learn more →
+                    </span>
 
-</a>
+                  </a>
 
-</div>
+                </div>
 
-)
+              )
 
-})}
+            })}
 
-</div>
+          </div>
 
-</motion.div>
-
-
-{/* RIGHT SIDE IMAGE */}
-
-<motion.div
-initial={{opacity:0,x:60}}
-whileInView={{opacity:1,x:0}}
-transition={{duration:0.9}}
-className="relative flex justify-center md:justify-end items-center"
->
-
-{/* glow shapes */}
-
-<div className="absolute w-60 h-60 bg-secondary/30 blur-[120px] rounded-full left-20 top-20"></div>
+        </motion.div>
 
 
-{/* floating card 1 */}
+        {/* RIGHT SIDE IMAGE */}
 
-<motion.div
-animate={{y:[0,-10,0]}}
-transition={{duration:4,repeat:Infinity}}
-className="absolute top-10 left-30 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-xl text-sm text-white"
->
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9 }}
+          className="relative flex justify-center md:justify-end items-center"
+        >
 
-1200+ photos delivered
+          {/* glow shapes */}
 
-</motion.div>
+          <div className="absolute w-60 h-60 bg-secondary/30 blur-[120px] rounded-full left-20 top-20"></div>
 
 
-{/* floating card 2 */}
+          {/* floating card 1 */}
 
-<motion.div
-animate={{y:[0,10,0]}}
-transition={{duration:5,repeat:Infinity}}
-className="z-20 absolute bottom-10 right-10 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-xl text-sm text-white"
->
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="absolute top-10 left-30 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-xl text-sm text-white"
+          >
 
-Private client gallery
+            1200+ photos delivered
 
-</motion.div>
+          </motion.div>
 
-{/* floating card 3 */}
-<motion.div
-animate={{y:[0,10,0]}}
-transition={{duration:5,repeat:Infinity}}
-className="z-20 absolute top-30 left-0 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-xl text-sm text-white"
->
 
-Build your Portfolio
+          {/* floating card 2 */}
 
-</motion.div>
-{/* main image */}
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 5, repeat: Infinity }}
+            className="z-20 absolute bottom-10 right-10 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-xl text-sm text-white"
+          >
 
-<img
-src={img4_no_background}
-alt="photographer"
-className="absolue right-0 z-10 w-[350px] md:w-[450px] object-center rounded-full"
-/>
+            Private client gallery
 
-</motion.div>
+          </motion.div>
 
-</div>
+          {/* floating card 3 */}
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 5, repeat: Infinity }}
+            className="z-20 absolute top-30 left-0 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-xl text-sm text-white"
+          >
 
-</section>
+            Build your Portfolio
 
-)
+          </motion.div>
+          {/* main image */}
+
+          <img
+            src={img4_no_background}
+            alt="photographer"
+            className="absolue right-0 z-10 w-[350px] md:w-[450px] object-center rounded-full"
+          />
+
+        </motion.div>
+
+      </div>
+
+    </section>
+
+  )
 
 }
