@@ -169,7 +169,7 @@ export default function Testimonials() {
                     >
 
                         {testimonials.map((t, i) => (
-                            <div key={i} className="min-w-full px-2">
+                            <div key={i} className="min-w-full flex justify-center">
                                 <Card t={t} />
                             </div>
                         ))}
