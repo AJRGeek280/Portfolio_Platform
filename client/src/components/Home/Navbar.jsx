@@ -101,7 +101,7 @@ export default function Navbar() {
 
         <div
           onClick={() => scrollToSection("hero")}
-          className="justify-center items-center flex"
+          className="justify-center items-center flex cursor-pointer"
         >
 
           <img src={logo} alt="Logo" className="w-10 h-10 mx-3" />
@@ -123,7 +123,7 @@ export default function Navbar() {
 
           <li
             onClick={() => scrollToSection("features")}
-            className={`mx-3 transition ${activeSection === "features"
+            className={`mx-3 transition cursor-pointer ${activeSection === "features"
                 ? "border-b-2 border-accent pb-1"
                 : "hover:text-white"
               }`}
@@ -133,7 +133,7 @@ export default function Navbar() {
 
           <li
             onClick={() => scrollToSection("howItWork")}
-            className={`mx-3 transition ${activeSection === "howItWork"
+            className={`mx-3 transition cursor-pointer ${activeSection === "howItWork"
                 ? "border-b-2 border-accent pb-1"
                 : "hover:text-white"
               }`}
@@ -143,7 +143,7 @@ export default function Navbar() {
 
           <li
             onClick={() => scrollToSection("portfolio")}
-            className={`mx-3 transition ${activeSection === "portfolio"
+            className={`mx-3 transition cursor-pointer ${activeSection === "portfolio"
                 ? "border-b-2 border-accent pb-1"
                 : "hover:text-white"
               }`}
@@ -153,7 +153,7 @@ export default function Navbar() {
 
           <li
             onClick={() => scrollToSection("pricing")}
-            className={`mx-3 transition ${activeSection === "pricing"
+            className={`mx-3 transition cursor-pointer ${activeSection === "pricing"
                 ? "border-b-2 border-accent pb-1"
                 : "hover:text-white"
               }`}
@@ -163,7 +163,7 @@ export default function Navbar() {
 
           <li
             onClick={() => scrollToSection("contact")}
-            className={`mx-3 transition ${activeSection === "contact"
+            className={`mx-3 transition cursor-pointer ${activeSection === "contact"
                 ? "border-b-2 border-accent pb-1"
                 : "hover:text-white"
               }`}
@@ -232,36 +232,36 @@ ${open ? "-rotate-45 -translate-y-2" : ""}`}
             <ul className="flex flex-col items-center gap-6 py-8 text-gray-300 font-body">
 
               <li
-                onClick={() => scrollToSection("howItWork")}
-                className="hover:text-white"
-              >
-                About
-              </li>
-
-              <li
                 onClick={() => scrollToSection("features")}
-                className="hover:text-white"
+                className="hover:text-white cursor-pointer"
               >
                 Features
               </li>
 
               <li
+                onClick={() => scrollToSection("howItWork")}
+                className="hover:text-white cursor-pointer"
+              >
+                About
+              </li>
+
+              <li
                 onClick={() => scrollToSection("portfolio")}
-                className="hover:text-white"
+                className="hover:text-white cursor-pointer"
               >
                 Portfolio
               </li>
 
               <li
                 onClick={() => scrollToSection("pricing")}
-                className="hover:text-white"
+                className="hover:text-white cursor-pointer"
               >
                 Pricing
               </li>
 
               <li
                 onClick={() => scrollToSection("contact")}
-                className="hover:text-white"
+                className="hover:text-white cursor-pointer"
               >
                 Contact
               </li>
@@ -270,9 +270,10 @@ ${open ? "-rotate-45 -translate-y-2" : ""}`}
 
                 <button
                   onClick={() => setOpen(false)}
-                  className="bg-accent px-6 py-2 rounded-lg text-black font-body"
+                  className="bg-accent px-6 py-2 rounded-lg text-black font-body font-bold"
                 >
-
+                  
+                  <User size={18} className="inline-block mr-2" />
                   Sign in
 
                 </button>
