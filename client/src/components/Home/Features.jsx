@@ -29,7 +29,7 @@ export default function Features() {
 
   return (
 
-    <section id="features" className="py-20 bg-background relative overflow-hidden">
+    <section id="features" className="py-20 bg-background relative flex items-center overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 

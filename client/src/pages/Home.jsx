@@ -17,7 +17,7 @@ import Footer from '../components/Home/Footer'
 function Home() {
   return (
     <>
-      <div className="bg-background min-h-screen">
+      <div className="bg-background w-full">
 
         <Navbar />
         <Hero />
