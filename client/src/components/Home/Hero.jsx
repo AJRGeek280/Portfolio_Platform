@@ -2,9 +2,20 @@ import { motion } from "framer-motion"
 import FloatingShapes from "../UI/FloatingShapes"
 import PhotoColumns from "../UI/PhotoColumns"
 import FloatingGlassCard from "../UI/FloatingGlassCard"
-import CursorSpotlight from "../UI/CursorSpotlight"
+import { Link } from "react-router-dom"
+import { ArrowRight, Rocket } from "lucide-react"
 
 export default function Hero() {
+
+    const scrollToSection = (id) => {
+
+        const element = document.getElementById(id)
+
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" })
+        }
+
+    }
 
     return (
 
@@ -45,20 +56,31 @@ export default function Hero() {
 
                     </p>
 
-                    <div className="flex gap-4 mt-8 justify-center align-center">
+                    <div className="flex gap-4 mt-8 justify-center align-center font-bold">
 
-                        <button className="bg-accent px-7 py-3 rounded-xl text-black font-body">
+                        <Link to="/login">
+                            <button className="flex items-center gap-2 bg-accent px-7 py-3 rounded-xl text-black font-body font bold hover:scale-105 transition">
 
-                            Start Today
+                                Start Today
+                                <Rocket size={18} className="inline-block ml-2 group-hover:translate-x-1 transition" />
 
-                        </button>
+                            </button>
+                        </Link>
 
-                        <button className="bg-white/10 backdrop-blur-md px-7 py-3 rounded-xl text-white border border-white/20">
 
-                            Live Demo
 
-                        </button>
 
+                        <Link>
+                            <button
+                                onClick={() => scrollToSection("features")}
+                                className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-7 py-3 rounded-xl text-white border border-white/20 hover:scale-105"
+                            >
+
+                                Learn More
+                                <ArrowRight size={18} className="inline-block ml-2 group-hover:translate-x-1 transition" />
+
+                            </button>
+                        </Link>
                     </div>
 
                 </motion.div>

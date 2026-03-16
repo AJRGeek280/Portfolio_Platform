@@ -22,8 +22,8 @@ function Home() {
         <Navbar />
         <Hero />
         <Features />
-        <Portfolio/>
         <HowItWorks/>
+        <Portfolio/>
         <Pricing/>
         <PricingComparison/>
         <Testimonials/>

@@ -1,219 +1,294 @@
 import { useState, useRef, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
 import logo from "../../assets/images/logo.png"
+import { User } from "lucide-react"
 
-export default function Navbar(){
+export default function Navbar() {
 
-const [open,setOpen]=useState(false)
+  const [open, setOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("hero")
 
-// Reference pour le Menu
-const menuRef = useRef(null)
+  // Reference pour le Menu
+  const menuRef = useRef(null)
+  const closeRef = useRef(null)
 
-// scroll vers section
-const scrollToSection = (id) => {
+  // scroll vers section
+  const scrollToSection = (id) => {
 
-const element = document.getElementById(id)
+    const element = document.getElementById(id)
 
-if(element){
-element.scrollIntoView({behavior:"smooth"})
-}
-
-setOpen(false)
-
-}
-
-// Bloque le Scroll
-useEffect(() => {
-
-  if(open){
-    document.body.style.overflow = "hidden"
-  }else{
-    document.body.style.overflow = "auto"
-  }
-
-}, [open])
-
-// Fermer Menu au click en dehors
-useEffect(() => {
-
-  const handleClickOutside = (event) => {
-
-    if(menuRef.current && !menuRef.current.contains(event.target)){
-      setOpen(false)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
     }
 
+    setOpen(false)
+
   }
 
-  if(open){
-    document.addEventListener("mousedown", handleClickOutside)
-  }
+  // Bloque le Scroll
+  useEffect(() => {
 
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside)
-  }
+    if (open) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "auto"
+    }
 
-}, [open])
+  }, [open])
 
-return(
+  // Fermer Menu au click en dehors
+  useEffect(() => {
 
-<nav className="fixed w-full top-0 left-0 z-50 backdrop-blur-lg bg-white/5 border-b border-white/10 cursor-pointer">
+    const handleClickOutside = (event) => {
 
-<div className="max-w-7xl mx-auto flex justify-between items-center px-10 py-6">
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        closeRef.current &&
+        !closeRef.current.contains(event.target)
+      ) {
+        setOpen(false)
+      }
 
-{/* LOGO */}
+    }
 
-<div
-onClick={()=>scrollToSection("hero")}
-className="justify-center items-center flex"
->
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
 
-<img src={logo} alt="Logo" className="w-10 h-10 mx-3" />
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
 
-<span className="text-white font-titre font-bold text-xl">
-Focus
-</span>
+  }, [open])
 
-<span className="gradient-text font-body font-titre font-bold text-xl">
-Frame
-</span>
+  // Scroll Spy - Active Section
+  useEffect(() => {
 
-</div>
+    const sections = document.querySelectorAll("section")
 
+    const observer = new IntersectionObserver(
 
-{/* DESKTOP MENU */}
+      (entries) => {
 
-<ul className="hidden md:flex gap-8 font-body text-gray-300">
+        entries.forEach((entry) => {
 
-<li
-onClick={()=>scrollToSection("howItWork")}
-className="hover:text-white mx-3"
->
-About
-</li>
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
 
-<li
-onClick={()=>scrollToSection("features")}
-className="hover:text-white mx-3"
->
-Features
-</li>
+        })
 
-<li
-onClick={()=>scrollToSection("portfolio")}
-className="hover:text-white mx-3"
->
-Portfolio
-</li>
+      },
+      { threshold: 0.3 }
 
-<li
-onClick={()=>scrollToSection("pricing")}
-className="hover:text-white mx-3"
->
-Pricing
-</li>
+    )
 
-<li
-onClick={()=>scrollToSection("contact")}
-className="hover:text-white mx-3"
->
-Contact
-</li>
+    sections.forEach((section) => observer.observe(section))
 
-</ul>
+    return () => observer.disconnect()
 
+  }, [])
 
-{/* SIGN IN */}
+  return (
 
-<Link to="/login">
+    <nav className="fixed w-full top-0 left-0 z-50 backdrop-blur-lg bg-white/5 border-b border-white/10 cursor-pointer">
 
-<button className="hidden md:block bg-accent px-5 py-2 rounded-lg text-black font-body">
-Sign in
-</button>
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-10 py-6">
 
-</Link>
+        {/* LOGO */}
 
+        <div
+          onClick={() => scrollToSection("hero")}
+          className="justify-center items-center flex"
+        >
 
-{/* HAMBURGER */}
+          <img src={logo} alt="Logo" className="w-10 h-10 mx-3" />
 
-<div
-onClick={()=>setOpen(!open)}
-className="md:hidden text-white mx-3 cursor-pointer text-2xl"
->
+          <span className="text-white font-titre font-bold text-xl">
+            Focus
+          </span>
 
-{open ? "✕" : "☰"}
+          <span className="gradient-text font-body font-titre font-bold text-xl">
+            Frame
+          </span>
 
-</div>
-
-</div>
+        </div>
 
 
-{/* MOBILE MENU */}
+        {/* DESKTOP MENU */}
 
-{open && (
+        <ul className="hidden md:flex gap-8 font-body text-gray-300">
 
-<div
-    ref={menuRef}
-    className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10"
->
+          <li
+            onClick={() => scrollToSection("features")}
+            className={`mx-3 transition ${activeSection === "features"
+                ? "border-b-2 border-accent pb-1"
+                : "hover:text-white"
+              }`}
+          >
+            Features
+          </li>
 
-<ul className="flex flex-col items-center gap-6 py-8 text-gray-300 font-body">
+          <li
+            onClick={() => scrollToSection("howItWork")}
+            className={`mx-3 transition ${activeSection === "howItWork"
+                ? "border-b-2 border-accent pb-1"
+                : "hover:text-white"
+              }`}
+          >
+            About
+          </li>
 
-<li
-onClick={()=>scrollToSection("about")}
-className="hover:text-white"
->
-About
-</li>
+          <li
+            onClick={() => scrollToSection("portfolio")}
+            className={`mx-3 transition ${activeSection === "portfolio"
+                ? "border-b-2 border-accent pb-1"
+                : "hover:text-white"
+              }`}
+          >
+            Portfolio
+          </li>
 
-<li
-onClick={()=>scrollToSection("features")}
-className="hover:text-white"
->
-Features
-</li>
+          <li
+            onClick={() => scrollToSection("pricing")}
+            className={`mx-3 transition ${activeSection === "pricing"
+                ? "border-b-2 border-accent pb-1"
+                : "hover:text-white"
+              }`}
+          >
+            Pricing
+          </li>
 
-<li
-onClick={()=>scrollToSection("portfolio")}
-className="hover:text-white"
->
-Portfolio
-</li>
+          <li
+            onClick={() => scrollToSection("contact")}
+            className={`mx-3 transition ${activeSection === "contact"
+                ? "border-b-2 border-accent pb-1"
+                : "hover:text-white"
+              }`}
+          >
+            Contact
+          </li>
 
-<li
-onClick={()=>scrollToSection("pricing")}
-className="hover:text-white"
->
-Pricing
-</li>
+        </ul>
 
-<li
-onClick={()=>scrollToSection("contact")}
-className="hover:text-white"
->
-Contact
-</li>
 
-<Link to="/login">
+        {/* SIGN IN */}
 
-<button
-onClick={()=>setOpen(false)}
-className="bg-accent px-6 py-2 rounded-lg text-black font-body"
->
+        <Link to="/login">
 
-Sign in
+          <button className="hidden md:block bg-accent px-5 py-2 rounded-lg text-black font-bold font-body hover:scale-105 transition">
+            <User size={18} className="inline-block mr-2" />
+            Sign in
+          </button>
 
-</button>
+        </Link>
 
-</Link>
 
-</ul>
+        {/* HAMBURGER ANIMÉ */}
 
-</div>
+        <div
+          ref={closeRef}
+          onClick={() => setOpen(prev => !prev)}
+          className="md:hidden flex flex-col justify-between w-6 h-5 cursor-pointer"
+        >
 
-)}
+          <span
+            className={`h-[2px] w-full bg-white transition-transform duration-300
+${open ? "rotate-45 translate-y-2" : ""}`}
+          ></span>
 
-</nav>
+          <span
+            className={`h-[2px] w-full bg-white transition-opacity duration-300
+${open ? "opacity-0" : "opacity-100"}`}
+          ></span>
 
-)
+          <span
+            className={`h-[2px] w-full bg-white transition-transform duration-300
+${open ? "-rotate-45 -translate-y-2" : ""}`}
+          ></span>
+
+        </div>
+
+      </div>
+
+
+      {/* MOBILE MENU SLIDE DOWN */}
+
+      <AnimatePresence>
+
+        {open && (
+
+          <motion.div
+            ref={menuRef}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10"
+          >
+
+            <ul className="flex flex-col items-center gap-6 py-8 text-gray-300 font-body">
+
+              <li
+                onClick={() => scrollToSection("howItWork")}
+                className="hover:text-white"
+              >
+                About
+              </li>
+
+              <li
+                onClick={() => scrollToSection("features")}
+                className="hover:text-white"
+              >
+                Features
+              </li>
+
+              <li
+                onClick={() => scrollToSection("portfolio")}
+                className="hover:text-white"
+              >
+                Portfolio
+              </li>
+
+              <li
+                onClick={() => scrollToSection("pricing")}
+                className="hover:text-white"
+              >
+                Pricing
+              </li>
+
+              <li
+                onClick={() => scrollToSection("contact")}
+                className="hover:text-white"
+              >
+                Contact
+              </li>
+
+              <Link to="/login">
+
+                <button
+                  onClick={() => setOpen(false)}
+                  className="bg-accent px-6 py-2 rounded-lg text-black font-body"
+                >
+
+                  Sign in
+
+                </button>
+
+              </Link>
+
+            </ul>
+
+          </motion.div>
+
+        )}
+
+      </AnimatePresence>
+
+    </nav>
+
+  )
 
 }
