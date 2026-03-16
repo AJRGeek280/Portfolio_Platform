@@ -90,7 +90,7 @@ export default function Contact() {
                                 </p>
 
                                 <p className="text-gray-400 text-sm">
-                                    Available 24/7 for photographers
+                                    Available 24/7
                                 </p>
 
                             </div>
@@ -107,7 +107,7 @@ export default function Contact() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="bg-white/5 border border-white/10 backdrop-blur-xl p-8 rounded-2xl space-y-5"
+                        className="bg-white/5 border border-white/10 backdrop-blur-xl p-4 rounded-2xl space-y-5"
                     >
 
                         <input
