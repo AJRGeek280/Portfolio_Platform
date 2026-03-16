@@ -56,7 +56,7 @@ export default function Hero() {
 
                     </p>
 
-                    <div className="flex gap-4 mt-8 justify-center align-center font-bold">
+                    <div className="flex flex-row flex-wrap gap-4 mt-8 justify-center align-center font-bold md:justify-center">
 
                         <Link to="/login">
                             <button className="flex items-center gap-2 bg-accent px-7 py-3 rounded-xl text-black font-body font bold hover:scale-105 transition">
