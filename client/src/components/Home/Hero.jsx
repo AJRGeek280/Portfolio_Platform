@@ -19,7 +19,7 @@ export default function Hero() {
 
     return (
 
-        <section id="hero" className="relative min-h-screen bg-background flex items-center pt-20 overflow-hidden">
+        <section id="hero" className="relative min-h-screen bg-background flex items-center mt-10 pt-20 overflow-hidden">
 
             <FloatingShapes />
             <FloatingGlassCard />

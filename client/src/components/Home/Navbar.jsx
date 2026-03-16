@@ -93,7 +93,7 @@ export default function Navbar() {
 
   return (
 
-    <nav className="fixed w-full top-0 left-0 z-50 backdrop-blur-lg bg-white/5 border-b border-white/10 cursor-pointer">
+    <nav className="fixed w-full top-0 left-0 z-50 backdrop-blur-lg bg-white/5 border-b border-white/10">
 
       <div className="max-w-7xl mx-auto flex justify-between items-center px-10 py-6">
 
