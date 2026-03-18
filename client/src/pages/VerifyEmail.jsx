@@ -64,7 +64,7 @@ subtitle="Enter the 6-digit code sent to your email"
 
 {/* CODE INPUT */}
 
-<div className="flex justify-between gap-2">
+<div className="flex justify-center gap-3">
 
 {code.map((digit,index)=>(
 
@@ -76,7 +76,7 @@ maxLength="1"
 value={digit}
 onChange={(e)=>handleChange(e.target.value,index)}
 onKeyDown={(e)=>handleKeyDown(e,index)}
-className="w-12 h-14 text-center text-xl bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:border-accent"
+className="w-10 h-12 text-center text-xl bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:border-accent"
 />
 
 ))}
