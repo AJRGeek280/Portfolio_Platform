@@ -5,7 +5,7 @@ export default function Topbar({ setOpen }) {
 
     return (
 
-        <div className="flex justify-between items-center p-4 border-b border-white/10 bg-background backdrop-blur">
+        <div className="flex justify-between items-center p-4 border-white/10 bg-background backdrop-blur">
 
             {/* LEFT */}
             <div className="flex items-center gap-3">
@@ -26,7 +26,7 @@ export default function Topbar({ setOpen }) {
             </div>
 
             {/* RIGHT */}
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-8 mr-4">
 
                 {[
                     { icon: Activity, label: "Activity" },
