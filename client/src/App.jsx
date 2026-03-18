@@ -17,13 +17,27 @@ import Footer from './components/Home/Footer'
 
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Register from './pages/Register'
+import ForgotPassword from './pages/ForgotPassword'
+import VerifyEmail from './pages/VerifyEmail'
+import ResetPassword from './pages/ResetPassword'
+
+import { Toaster } from "react-hot-toast"
 
 function App() {
   return (
     <>
+      <Toaster position="top-right" />
      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        <Route path="/verify-email" element={<VerifyEmail />}></Route>
+        <Route path="/reset-password" element={<ResetPassword />}></Route>
+
+        {/* DEFAULT */}
+        <Route path="*" element={<Login/>}/>
      </Routes>
     </>
   )
