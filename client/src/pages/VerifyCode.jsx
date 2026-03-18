@@ -1,26 +1,28 @@
 import { useState, useRef, useEffect } from "react"
 import AuthLayout from "../components/Auth/AuthLayout"
-import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
+import { motion } from "framer-motion"
 
-export default function VerifyEmail(){
+export default function VerifyCode(){
 
 const navigate = useNavigate()
 
-const [code,setCode]=useState(["","","","","",""])
-const inputs = useRef([])
+const [code,setCode] = useState(["","","","","",""])
+const inputsRef = useRef([])
 
 // ⏱ TIMER RESEND (persistant)
 const [timeLeft, setTimeLeft] = useState(() => {
-const saved = localStorage.getItem("emailResendTimer")
+const saved = localStorage.getItem("resendTimer")
 return saved ? Math.max(0, Math.floor((saved - Date.now()) / 1000)) : 120
 })
 
-const [isActive,setIsActive] = useState(timeLeft > 0)
+const [isActive, setIsActive] = useState(timeLeft > 0)
+const [loading,setLoading] = useState(false)
 
 // 🔥 autofocus premier input
 useEffect(()=>{
-inputs.current[0]?.focus()
+inputsRef.current[0]?.focus()
 },[])
 
 // ⏳ countdown
@@ -39,48 +41,49 @@ return ()=> clearInterval(timer)
 
 },[timeLeft])
 
-// 🔢 input change
-function handleChange(value,index){
+// 🔢 change input
+const handleChange = (value,index)=>{
 
 if(!/^[0-9]?$/.test(value)) return
 
-const newCode=[...code]
-newCode[index]=value
+const newCode = [...code]
+newCode[index] = value
 setCode(newCode)
 
+// focus suivant
 if(value && index < 5){
-inputs.current[index+1].focus()
+inputsRef.current[index + 1].focus()
 }
 
 }
 
 // ⌫ backspace + navigation
-function handleKeyDown(e,index){
+const handleKeyDown = (e,index)=>{
 
-if(e.key==="Backspace"){
+if(e.key === "Backspace"){
 
 if(code[index]){
-const newCode=[...code]
-newCode[index]=""
+const newCode = [...code]
+newCode[index] = ""
 setCode(newCode)
-}else if(index>0){
-inputs.current[index-1].focus()
+}else if(index > 0){
+inputsRef.current[index - 1].focus()
 }
 
 }
 
-if(e.key==="ArrowLeft" && index>0){
-inputs.current[index-1].focus()
+if(e.key === "ArrowLeft" && index > 0){
+inputsRef.current[index - 1].focus()
 }
 
-if(e.key==="ArrowRight" && index<5){
-inputs.current[index+1].focus()
+if(e.key === "ArrowRight" && index < 5){
+inputsRef.current[index + 1].focus()
 }
 
 }
 
-// 📋 paste
-function handlePaste(e){
+// 📋 paste complet
+const handlePaste = (e)=>{
 
 const paste = e.clipboardData.getData("text")
 
@@ -89,46 +92,65 @@ if(!/^\d{6}$/.test(paste)) return
 const newCode = paste.split("")
 setCode(newCode)
 
-inputs.current[5].focus()
+inputsRef.current[5].focus()
 
 }
 
-// 🔁 resend avec timer
-function handleResend(){
+// 🔁 resend code
+const handleResend = ()=>{
 
 const expiry = Date.now() + 120 * 1000
-localStorage.setItem("emailResendTimer", expiry)
+localStorage.setItem("resendTimer", expiry)
 
 setTimeLeft(120)
 setIsActive(true)
 
 // reset inputs
 setCode(["","","","","",""])
-inputs.current[0]?.focus()
+inputsRef.current[0]?.focus()
 
 // simulation nouveau code
 const newCode = Math.floor(100000 + Math.random() * 900000)
-console.log("NEW EMAIL CODE:", newCode)
+localStorage.setItem("resetCode", newCode)
+localStorage.setItem("resetExpiry", Date.now() + 5 * 60 * 1000)
+
+console.log("NEW CODE:", newCode)
 
 toast.success("Code resent 📧")
 
 }
 
 // ✅ submit
-function handleSubmit(e){
+const handleSubmit = (e)=>{
+
 e.preventDefault()
 
-const finalCode = code.join("")
+const enteredCode = code.join("")
+const storedCode = localStorage.getItem("resetCode")
+const expiry = localStorage.getItem("resetExpiry")
 
-if(finalCode.length !== 6){
+if(enteredCode.length !== 6){
 toast.error("Enter 6 digits")
 return
 }
 
-toast.success("Email verified successfully")
+if(Date.now() > expiry){
+toast.error("Code expired")
+navigate("/forgot-password")
+return
+}
+
+if(enteredCode !== storedCode){
+toast.error("Invalid code")
+return
+}
+
+setLoading(true)
 
 setTimeout(()=>{
-navigate("/login")
+setLoading(false)
+toast.success("Code verified")
+navigate("/reset-password")
 },1000)
 
 }
@@ -143,15 +165,15 @@ return `${min}:${sec < 10 ? "0" : ""}${sec} sec`
 return(
 
 <AuthLayout
-title="Verify Email"
-subtitle="Enter 6-digit code sent to your email"
+title="Verify Code"
+subtitle="Enter the 6-digit code sent to your email"
 >
 
 <form onSubmit={handleSubmit} className="space-y-6">
 
-{/* CODE INPUT */}
+{/* INPUTS */}
 
-<div 
+<div
 className="flex justify-center gap-3"
 onPaste={handlePaste}
 >
@@ -160,7 +182,7 @@ onPaste={handlePaste}
 
 <input
 key={index}
-ref={(el)=>inputs.current[index]=el}
+ref={(el)=>inputsRef.current[index]=el}
 type="text"
 maxLength="1"
 value={digit}
@@ -174,22 +196,26 @@ focus:outline-none focus:border-accent focus:scale-110 focus:shadow-lg focus:sha
 
 </div>
 
-{/* VERIFY BUTTON */}
+{/* BUTTON */}
 
-<button
-className="w-full bg-accent text-black py-3 rounded-xl font-semibold hover:scale-105 transition"
+<motion.button
+disabled={loading}
+whileHover={{scale:1.05}}
+whileTap={{scale:0.95}}
+className="w-full bg-accent text-black py-3 rounded-xl font-semibold"
 >
 
-Verify Email
+{loading ? "Verifying..." : "Verify Code"}
 
-</button>
+</motion.button>
+
+</form>
 
 {/* RESEND */}
 
-<div className="text-center">
+<div className="text-center mt-4">
 
 <button
-type="button"
 onClick={handleResend}
 disabled={isActive}
 className={`text-sm font-medium transition
@@ -202,8 +228,6 @@ ${isActive ? "text-gray-500 cursor-not-allowed" : "text-accent hover:underline"}
 </button>
 
 </div>
-
-</form>
 
 </AuthLayout>
 

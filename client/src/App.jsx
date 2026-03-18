@@ -21,8 +21,13 @@ import Register from './pages/Register'
 import ForgotPassword from './pages/ForgotPassword'
 import VerifyEmail from './pages/VerifyEmail'
 import ResetPassword from './pages/ResetPassword'
+import VerifyCode from './pages/VerifyCode'
+
+import Dashboard from './pages/Photographer/Dashboard'
 
 import { Toaster } from "react-hot-toast"
+
+import ProtectedRoute from './routes/ProtectedRoute'
 
 function App() {
   return (
@@ -35,6 +40,13 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/verify-email" element={<VerifyEmail />}></Route>
         <Route path="/reset-password" element={<ResetPassword />}></Route>
+        <Route path="/verify-code" element={<VerifyCode />}></Route>
+
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }/>
 
         {/* DEFAULT */}
         <Route path="*" element={<Login/>}/>

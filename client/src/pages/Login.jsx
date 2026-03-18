@@ -38,7 +38,8 @@ const navigate = useNavigate()
       setLoading(false)
       toast.success("Login successful")
 
-      // Redirection 
+      localStorage.setItem("auth", "true")
+
       navigate("/dashboard")
     }, 1500)
 

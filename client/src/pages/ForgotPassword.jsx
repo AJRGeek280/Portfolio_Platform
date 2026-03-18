@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 export default function ForgotPassword(){
 
-//Variable redirection
-    const navigate = useNavigate()
+const navigate = useNavigate()
 const [email,setEmail]=useState("")
 const [loading,setLoading]=useState(false)
 
@@ -22,11 +21,24 @@ return
 setLoading(true)
 
 setTimeout(()=>{
-setLoading(false)
-toast.success("Reset link sent successfully")
 
-// 🔥 simulation lien email
-navigate("/reset-password")
+setLoading(false)
+
+// Génération code 6 chiffres
+const code = Math.floor(100000 + Math.random() * 900000)
+
+// Stockage temporaire
+localStorage.setItem("resetCode", code)
+localStorage.setItem("resetEmail", email)
+localStorage.setItem("resetExpiry", Date.now() + 5 * 60 * 1000) // 5 min
+
+console.log("CODE:", code) // simulation
+
+toast.success("Verification code sent")
+
+// REDIRECTION VERS VERIFY
+navigate("/verify-code")
+
 },1500)
 
 }
@@ -55,7 +67,7 @@ whileTap={{scale:0.95}}
 className="w-full bg-accent text-black py-3 rounded-xl font-semibold"
 >
 
-{loading ? "Sending..." : "Send Reset Link"}
+{loading ? "Sending..." : "Send Code"}
 
 </motion.button>
 
