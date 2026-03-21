@@ -2,8 +2,9 @@
 import { useState } from "react"
 import Sidebar from "./Sidebar"
 import Topbar from "./Topbar"
+import { Outlet } from "react-router-dom"
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout() {
 
     const [open, setOpen] = useState(false)
 
@@ -21,9 +22,9 @@ export default function DashboardLayout({ children }) {
                 {/* CONTENT */}
                 <div
                     className="p-6 overflow-y-auto"
-                    onClick={() => setOpen(false)} // 👈 ferme si clique extérieur
+                    onClick={() => setOpen(false)}
                 >
-                    {children}
+                    <Outlet /> {/* ✅ FIX ICI */}
                 </div>
 
             </div>

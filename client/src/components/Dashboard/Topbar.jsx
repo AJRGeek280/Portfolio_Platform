@@ -20,7 +20,7 @@ export default function Topbar({ setOpen }) {
 
                 {/* TITLE (DESKTOP ONLY) */}
                 <h1 className="hidden md:block text-lg font-bold font-body">
-                    Dashboard
+                    D A S H B O A R D
                 </h1>
 
             </div>
@@ -39,7 +39,7 @@ export default function Topbar({ setOpen }) {
                     return (
                         <div key={index} className="relative group flex flex-col items-center">
 
-                            <Icon className="cursor-pointer hover:text-accent transition" />
+                            <Icon className="cursor-pointer hover:text-accent hover:scale-110 transition" />
 
                             <div className="
                                 absolute -bottom-10 left-1/2 -translate-x-1/2

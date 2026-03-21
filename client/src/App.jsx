@@ -1,19 +1,6 @@
-import { useState } from 'react'
 import { Routes, Route } from "react-router-dom"
 import './App.css'
 import './index.css'
-import Navbar from './components/Home/Navbar'
-import Hero from './components/Home/Hero'
-import Features from './components/Home/Features'
-import Portfolio from './components/Home/Portfolio'
-import HowItWorks from './components/Home/HowItWork'
-import Pricing from './components/Home/Pricing'
-import PricingComparison from './components/Home/PricingComparison'
-import Testimonials from './components/Home/Testimonials'
-import FAQ from './components/Home/FAQ'
-import FinalCTA from './components/Home/FinalCTA'
-import Contact from './components/Home/Contact'
-import Footer from './components/Home/Footer'
 
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -23,34 +10,69 @@ import VerifyEmail from './pages/VerifyEmail'
 import ResetPassword from './pages/ResetPassword'
 import VerifyCode from './pages/VerifyCode'
 
-import Dashboard from './pages/Photographer/Dashboard'
+import DashboardLayout from './components/Dashboard/DashboardLayout'
+import Overview from './pages/Photographer/Overview'
+import Gallery from "./pages/Photographer/Gallery"
 
 import { Toaster } from "react-hot-toast"
-
 import ProtectedRoute from './routes/ProtectedRoute'
 
+import CreateGallery from "./pages/Photographer/Gallery/CreateGallery"
+import ViewGallery from "./pages/Photographer/Gallery/ViewGallery"
+
+
+import PublicGallery from "./pages/Photographer/SharedGallery/PublicGallery"
+import ClientGallery from "./pages/Photographer/SharedGallery/ClientGallery"
+
+
 function App() {
+
   return (
     <>
       <Toaster position="top-right" />
-     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/register" element={<Register />}></Route>
-        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-        <Route path="/verify-email" element={<VerifyEmail />}></Route>
-        <Route path="/reset-password" element={<ResetPassword />}></Route>
-        <Route path="/verify-code" element={<VerifyCode />}></Route>
 
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }/>
+      <Routes>
+
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-code" element={<VerifyCode />} />
+
+         {/* GALLERIES SHARE ROUTES */}
+        <Route path="/gallery/public/:token" element={<PublicGallery />} />
+        <Route path="/gallery/client/:token" element={<ClientGallery />} />
+        
+
+        {/* 🔥 DASHBOARD (NESTED ROUTES) */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+
+          {/* DEFAULT PAGE */}
+          <Route index element={<Overview />} />
+          <Route path="gallery" element={<Gallery />} />
+          <Route path="gallery/create" element={<CreateGallery />} />
+          <Route path="gallery/:id" element={<ViewGallery />} />
+          {/* FUTURES PAGES */}
+          {/* <Route path="portfolio" element={<Portfolio />} /> */}
+          {/* <Route path="gallery" element={<Gallery />} /> */}
+          {/* etc... */}
+
+        </Route>
 
         {/* DEFAULT */}
-        <Route path="*" element={<Login/>}/>
-     </Routes>
+        <Route path="*" element={<Login />} />
+
+      </Routes>
     </>
   )
 }

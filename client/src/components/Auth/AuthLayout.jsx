@@ -5,7 +5,7 @@ export default function AuthLayout({children,title,subtitle}){
 
 return(
 
-<div className="min-h-screen flex items-center justify-center px-1">
+<div className="min-h-screen flex items-center justify-center p-4">
 
 {/* BACKGROUND */}
 
