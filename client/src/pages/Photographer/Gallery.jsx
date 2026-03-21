@@ -219,11 +219,7 @@ export default function Gallery() {
                                 {gallery.status}
                             </span>
 
-                            {gallery.client && (
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Token: {gallery.client.token}
-                                </p>
-                            )}
+                            
 
                             {/* HOVER */}
                             <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition">
@@ -266,6 +262,12 @@ export default function Gallery() {
                             <h3 className="text-white font-bold font-body">
                                 {gallery.name}
                             </h3>
+
+                            {gallery.client && (
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Token: {gallery.share.token}
+                                </p>
+                            )}
 
                             <p className="text-gray-400 text-sm">
                                 {gallery.photos?.length || 0} photos • {gallery.date || "Recently"}
