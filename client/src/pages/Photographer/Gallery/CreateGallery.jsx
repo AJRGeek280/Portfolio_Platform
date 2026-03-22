@@ -128,7 +128,10 @@ export default function CreateGallery() {
             },
 
             favorites: [],
-            approved: false
+            approved: false,
+
+            comments: [],
+            approvedPhotos: []
         }
 
         const existing = JSON.parse(localStorage.getItem("galleries") || "[]")

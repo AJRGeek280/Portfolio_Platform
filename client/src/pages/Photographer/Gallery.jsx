@@ -263,7 +263,15 @@ export default function Gallery() {
                                 {gallery.name}
                             </h3>
 
-                            {gallery.client && (
+                            {
+                                gallery.client && (
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Token: {gallery.share.token}
+                                </p>
+                            )}
+
+                            {
+                                gallery.status === "Public" && (
                                 <p className="text-xs text-gray-500 mt-1">
                                     Token: {gallery.share.token}
                                 </p>
